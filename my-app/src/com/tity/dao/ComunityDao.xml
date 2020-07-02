@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tity.dao.ComunityDao">
+
+	<!--  <sql id="novel_where">
+		<where>
+			<if test="cunityName !=null and cunityName !='' ">
+				and a.xq_mc LIKE '%${cunityName}%'
+			</if>
+		</where>
+	</sql>-->
+
+	<select id="findCommunityBy" parameterType="com.tity.entity.PageCunit" resultType="com.tity.entity.Community">
+		SELECT a.`xq_id`,a.`xq_mc`,a.`xq_dz`,a.`xq_long`,a.`xq_lat`,a.`hospital_s`,a.`subway_s`,a.`school_s`,a.`mart_s`,a.`total_s`
+		FROM `xiaoqunew` a
+		<!--  <include refid="novel_where"></include>
+		
+		LIMIT #{start},#{size}-->
+	</select>
+	
+	<select id="findCommunityByCount" parameterType="com.tity.entity.PageCunit" resultType="int">
+		SELECT COUNT(*) FROM `xiaoqunew`
+		<!--<include refid="novel_where"></include>
+		LIMIT #{start},#{size}-->
+	</select>
+	
+	<select id="findCommunityById" parameterType="long" resultType="com.tity.entity.Community">
+		SELECT * FROM `xiaoqunew` WHERE `xq_id`=#{id}
+	</select>
+	
+	<insert id="insertCommunityById" parameterType="com.tity.entity.Community">
+		INSERT INTO `xiaoqunew`(`xq_mc`,`xq_dz`,`xq_long`,`xq_lat`,`hospital_s`,`subway_s`,`school_s`,`mart_s`,`total_s`)
+		VALUE(#{xq_mc},#{xq_dz},#{xq_long},#{xq_lat},#{hospital_s},#{subway_s},#{school_s},#{mart_s},#{total_s})
+	</insert>
+	
+	<update id="updateCommunityById" parameterType="com.tity.entity.Community">
+		UPDATE xiaoqunew
+		<set>
+			<if test="xq_mc !=null and xq_mc !='' ">
+				xq_mc=#{xq_mc},
+			</if>
+			<if test="xq_dz !=null and xq_dz !='' ">
+				xq_dz=#{xq_dz},
+			</if>
+			<if test="xq_long !=null and xq_long !='' ">
+				xq_long=#{xq_long},
+			</if>
+			<if test="xq_lat !=null and xq_lat !='' ">
+				xq_lat=#{xq_lat},
+			</if>
+			<if test="hospital_s !=null and hospital_s !='' ">
+				hospital_s=#{hospital_s},
+			</if>
+			<if test="subway_s !=null and subway_s !='' ">
+				subway_s=#{subway_s},
+			</if>
+			<if test="school_s !=null and school_s !='' ">
+				school_s=#{school_s},
+			</if>
+			<if test="mart_s !=null and mart_s !='' ">
+				mart_s=#{mart_s},
+			</if>
+			<if test="total_s !=null and total_s !='' ">
+				total_s=#{total_s},
+			</if>
+		</set>
+		WHERE xq_id=#{xq_id}
+	</update>
+	
+	<delete id="deleteCommunityById" parameterType="com.tity.entity.Community">
+		DELETE FROM `xiaoqunew` WHERE `xq_id`=#{id}
+	</delete>
+
+</mapper>
